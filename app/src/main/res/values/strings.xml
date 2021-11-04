@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LearningApp</string>
+    <string name="login">LogIn</string>
+    <string name="signup">SignUp</string>
 </resources>
