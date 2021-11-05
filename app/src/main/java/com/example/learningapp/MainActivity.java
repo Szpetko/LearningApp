@@ -12,6 +12,7 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     private Button btn_logPage;
+    private Button btn_singPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         btn_logPage = findViewById(R.id.btn_logPage);
+        btn_singPage = findViewById(R.id.btn_signPage);
+
         btn_logPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,10 +32,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_singPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSignupActivity();
+            }
+        });
+
     }
 
     public void openLoginActivity(){
         Intent intent = new Intent(this, login_activity.class);
+        startActivity(intent);
+    }
+    public void openSignupActivity(){
+        Intent intent = new Intent(this, signup_activity.class);
         startActivity(intent);
     }
 }
