@@ -9,30 +9,32 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-    private Button btn_logPage;
+public class login_activity extends AppCompatActivity {
+
+    private FloatingActionButton fabtn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.intro_activity);
+        setContentView(R.layout.login_activity);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        btn_logPage = findViewById(R.id.btn_logPage);
-        btn_logPage.setOnClickListener(new View.OnClickListener() {
+        fabtn_back = findViewById(R.id.fabtn_back);
+        fabtn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openLoginActivity();
+                openIntroActivity();
             }
         });
 
     }
 
-    public void openLoginActivity(){
-        Intent intent = new Intent(this, login_activity.class);
+    public void openIntroActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }
