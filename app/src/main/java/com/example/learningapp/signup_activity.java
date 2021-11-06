@@ -16,8 +16,36 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class signup_activity extends AppCompatActivity {
 
+    private Boolean isStyleSelected;
+    private String lrStyle;
+
     private FloatingActionButton fabtn_back;
     private Spinner sp_lrStyle;
+
+    public String getLrStyle() {
+        return lrStyle;
+    }
+
+    public void setLrStyle(String lrStyle) {
+        this.lrStyle = lrStyle;
+    }
+
+
+    public Boolean getStyleSelected() {
+        return isStyleSelected;
+    }
+
+    public void setStyleSelected(Boolean styleSelected) {
+        isStyleSelected = styleSelected;
+    }
+
+    @Override
+    public String toString() {
+        return "signup_activity{" +
+                "isStyleSelected=" + isStyleSelected +
+                '}';
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +68,31 @@ public class signup_activity extends AppCompatActivity {
 
 
         //Spinner
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.learning_styles, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.learning_styles, R.layout.spnr_style);
+        adapter.setDropDownViewResource(R.layout.sprn_drpdn_style);
+
         sp_lrStyle.setAdapter(adapter);
+
 
         sp_lrStyle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(signup_activity.this, "Selected: " +parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
+                if (position==0)
+                {
+                    //Do nothing
+                    //ERROR "You need to select Learning Style"
+                    isStyleSelected = false;
+                    Toast.makeText(signup_activity.this, "You need to select Learning Style " + getStyleSelected().toString(), Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    isStyleSelected = true;
+                    lrStyle = (String) parent.getItemAtPosition(position);
+                    Toast.makeText(signup_activity.this, "Selected: " + lrStyle + " " + getStyleSelected().toString(), Toast.LENGTH_SHORT).show();
+
+                }
+
+
             }
 
             @Override
@@ -65,6 +109,7 @@ public class signup_activity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
 
 
 }
