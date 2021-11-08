@@ -1,6 +1,7 @@
 package com.example.learningapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Build;
@@ -9,8 +10,17 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.example.learningapp.data.UserDAO;
+import com.example.learningapp.data.UserDatabase;
+
 public class MainActivity extends AppCompatActivity {
 
+    //Database
+    UserDAO user_db;
+    UserDatabase user_dataBase;
+
+
+    //References to Buttons
     private Button btn_logPage;
     private Button btn_singPage;
 
@@ -18,13 +28,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro_activity);
+        //No Bars
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
+        //Database
+        user_dataBase = Room.databaseBuilder(this,UserDatabase.class, "User")
+                .allowMainThreadQueries()
+                .build();
+
+        user_db = user_dataBase.getUserDao();
+
+        //References to Buttons
         btn_logPage = findViewById(R.id.btn_logPage);
         btn_singPage = findViewById(R.id.btn_signPage);
 
+        //Button Listeners
         btn_logPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
