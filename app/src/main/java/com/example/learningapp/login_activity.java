@@ -59,7 +59,8 @@ public class login_activity extends AppCompatActivity {
 
                 User user = userDAO.getUser(username,password);
                 if (user != null){
-                    Toast.makeText(login_activity.this, "Login Succeful!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(login_activity.this, "Login Succeful!" + user.getId(), Toast.LENGTH_SHORT).show();
+                    openHomeActivity(user.getId());
                 }
                 else {
                     Toast.makeText(login_activity.this, "UnRegistered user or incorrect password.", Toast.LENGTH_SHORT).show();
@@ -81,6 +82,11 @@ public class login_activity extends AppCompatActivity {
 
     public void openIntroActivity(){
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void openHomeActivity(int id){
+        Intent intent = new Intent(this, home_activity.class).putExtra("id", id);
         startActivity(intent);
     }
 }

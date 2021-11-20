@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/bottom_image" />
 
     <ImageView
-        android:id="@+id/img_topBc"
+        android:id="@+id/img_topMainBc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -45,7 +45,7 @@
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_topBc" />
+        app:layout_constraintTop_toBottomOf="@+id/img_topMainBc" />
 
     <Spinner
         android:id="@+id/sp_lrStyle"

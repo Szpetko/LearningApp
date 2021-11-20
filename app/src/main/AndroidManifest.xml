@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningApp">
         <activity
+            android:name=".home_activity"
+            android:exported="true" />
+        <activity
             android:name=".signup_activity"
             android:exported="true" />
         <activity

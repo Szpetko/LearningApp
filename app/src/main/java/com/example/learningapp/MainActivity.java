@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         user_db = user_dataBase.getUserDao();
 
         //References to Buttons
-        btn_logPage = findViewById(R.id.btn_logPage);
-        btn_singPage = findViewById(R.id.btn_signPage);
+        btn_logPage = findViewById(R.id.btn_continue);
+        btn_singPage = findViewById(R.id.btn_logout);
 
         //Button Listeners
         btn_logPage.setOnClickListener(new View.OnClickListener() {
