@@ -1,5 +1,7 @@
 package com.example.learningapp;
 
+import static java.lang.Math.abs;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -14,7 +16,11 @@ import android.widget.Toast;
 
 import com.example.learningapp.data.UserDAO;
 import com.example.learningapp.data.UserDatabase;
+import com.example.learningapp.model.Stats;
 import com.example.learningapp.model.User;
+import com.example.learningapp.model.UserAndStats;
+
+import java.util.List;
 
 public class home_activity extends AppCompatActivity {
 
@@ -63,26 +69,28 @@ public class home_activity extends AppCompatActivity {
         btn_logout = findViewById(R.id.btn_logout);
         pb_progress = findViewById(R.id.pb_progress);
 
-        //Database
-        userDAO = Room.databaseBuilder(this, UserDatabase.class, "User").allowMainThreadQueries().build().getUserDao();
-
         //Setting User ID
         userId = getIntent().getIntExtra("id",0);
+
+        //Database
+        userDAO = Room.databaseBuilder(this, UserDatabase.class, "User").allowMainThreadQueries().build().getUserDao();
+        User user = userDAO.getUserById(userId);
+
+
 
         //Setting TextViews
         tv_lrStyle.setText("Learning Style: None");
         tv_name.setText("Name");
-        tv_progressProc.setText("0%");
-
 
         //Setting ProgressBar
-//        pb_progress.setProgress(currentProgress);
-//        pb_progress.setMax(100);
-
+        float userProgress = user.getProgress();
+        currentProgress = Math.round((userProgress / 50) * 100);
+        tv_progressProc.setText(currentProgress + "%");
+        pb_progress.setProgress(currentProgress);
+        pb_progress.setMax(100);
 
 
         //Loading from Database
-        User user = userDAO.getUserById(userId);
         if (user != null){
 
             //Successfully taking things from database
@@ -97,13 +105,23 @@ public class home_activity extends AppCompatActivity {
 
 
 
+
+
         //Button Listeners
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Start or Continue the learning
-                //Toast.makeText(home_activity.this, user.getLr_style, Toast.LENGTH_SHORT).show();
-                Toast.makeText(home_activity.this, "Id: " + userId , Toast.LENGTH_SHORT).show();
+
+                user.setProgress(user.getProgress()+1);
+                userDAO.updateUser(user);
+                //currentProgress = user.getProgress()/20 * 100;
+                float userProgress = user.getProgress();
+                currentProgress = Math.round((userProgress / 50) * 100);
+                //Toast.makeText(home_activity.this, "Progress: " + user.getProgress() + " | " + currentProgress, Toast.LENGTH_SHORT).show();
+                pb_progress.setProgress(currentProgress);
+                pb_progress.setMax(100);
+                tv_progressProc.setText(currentProgress + "%");
             }
         });
 
@@ -112,13 +130,10 @@ public class home_activity extends AppCompatActivity {
             public void onClick(View v) {
                 //Opening the tab with Statistics
 
-                //Only for testing it will add progress to the bar
-                //setCurrentProgress(getCurrentProgress() + 10);
-                currentProgress = currentProgress + 10;
-                if (currentProgress == 110) currentProgress = 0;
-                pb_progress.setProgress(currentProgress);
-                pb_progress.setMax(100);
-                tv_progressProc.setText(currentProgress + "%");
+
+                Stats userStats = userDAO.getStatsByUserId(userId);
+                Toast.makeText(home_activity.this, "cos: " + userStats.toString(), Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -126,6 +141,17 @@ public class home_activity extends AppCompatActivity {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                user.setProgress(user.getProgress()-1);
+                userDAO.updateUser(user);
+                //currentProgress = user.getProgress()/20 * 100;
+                float userProgress = user.getProgress();
+                currentProgress = Math.round((userProgress / 50) * 100);
+                //Toast.makeText(home_activity.this, "Progress: " + user.getProgress() + " | " + currentProgress, Toast.LENGTH_SHORT).show();
+                pb_progress.setProgress(currentProgress);
+                pb_progress.setMax(100);
+                tv_progressProc.setText(currentProgress + "%");
+
+
                 //Logging out
             }
         });

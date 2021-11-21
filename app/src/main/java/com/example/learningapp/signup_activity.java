@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.learningapp.data.UserDAO;
 import com.example.learningapp.data.UserDatabase;
+import com.example.learningapp.model.Stats;
 import com.example.learningapp.model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -101,9 +102,12 @@ public class signup_activity extends AppCompatActivity {
 
 
                 if (password.equals(rePassword)){
-                    final User user = new User(username,password,lrStyle);
+                    User user = new User(username,password,lrStyle,0);
                     if (invalidInput(user)){
                         userDAO.registerUser(user);
+                        user = userDAO.getUser(username,password);
+                        Stats stats = new Stats(user.getId(),0,0,0,0,0,0,0,0,0);
+                        userDAO.insertStats(stats);
                         Toast.makeText(getApplicationContext(), "User Registered!", Toast.LENGTH_SHORT).show();
                         openIntroActivity();
                     }

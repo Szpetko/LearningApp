@@ -24,13 +24,16 @@ public class User implements Serializable {
     @ColumnInfo(name = "lr_style")
     private String lr_style;
 
+    @ColumnInfo(name = "progress")
+    private int progress;
+
     //Constructor
-    public User(String username, String password, String lr_style) {
+    public User(String username, String password, String lr_style, int progress) {
         this.username = username;
         this.password = password;
         this.lr_style = lr_style;
+        this.progress = progress;
     }
-
 
     //Getters and Setters
     @NotNull
@@ -66,8 +69,17 @@ public class User implements Serializable {
         this.lr_style = lr_style;
     }
 
-    //toString
+    public int getProgress() {
+        return progress;
+    }
 
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+
+
+    //toString
     @Override
     public String toString() {
         return "User{" +
@@ -75,6 +87,7 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", lr_style='" + lr_style + '\'' +
+                ", progress=" + progress +
                 '}';
     }
 }

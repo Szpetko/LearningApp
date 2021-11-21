@@ -59,7 +59,7 @@ public class login_activity extends AppCompatActivity {
 
                 User user = userDAO.getUser(username,password);
                 if (user != null){
-                    Toast.makeText(login_activity.this, "Login Succeful!" + user.getId(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(login_activity.this, "Login Succeful!" + user.getProgress(), Toast.LENGTH_SHORT).show();
                     openHomeActivity(user.getId());
                 }
                 else {
