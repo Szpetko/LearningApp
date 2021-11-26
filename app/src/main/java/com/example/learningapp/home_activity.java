@@ -5,6 +5,7 @@ import static java.lang.Math.abs;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +29,7 @@ public class home_activity extends AppCompatActivity {
     private UserDAO userDAO;
 
 
+    //Variables
     private int userId;
     private int currentProgress;
 
@@ -131,8 +133,9 @@ public class home_activity extends AppCompatActivity {
                 //Opening the tab with Statistics
 
 
-                Stats userStats = userDAO.getStatsByUserId(userId);
-                Toast.makeText(home_activity.this, "cos: " + userStats.toString(), Toast.LENGTH_SHORT).show();
+//                Stats userStats = userDAO.getStatsByUserId(userId);
+//                Toast.makeText(home_activity.this, "cos: " + userStats.toString(), Toast.LENGTH_SHORT).show();
+                openStatsActivity(userId);
 
 
             }
@@ -157,6 +160,11 @@ public class home_activity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void openStatsActivity(int id){
+        Intent intent = new Intent(this, stats_activity.class).putExtra("id", id);
+        startActivity(intent);
     }
 
 

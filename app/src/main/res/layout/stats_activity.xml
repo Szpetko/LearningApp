@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".stats_activity"
+    android:background="#E1E1E1">
+
+    <ScrollView
+        android:layout_width="391dp"
+        android:layout_height="705dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_topMainBc">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_ch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:text="@string/chapter1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/tv_ch1_theory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/tv_ch1_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/tv_ch1_grade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/tv_ch2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:text="@string/chapter2"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/tv_ch2_theory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/tv_ch2_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/tv_ch2_grade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/tv_ch3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:text="@string/chapter3"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/tv_ch3_theory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/tv_ch3_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:textColor="@color/white"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/tv_ch3_grade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:textColor="@color/white"
+                android:textSize="23sp"
+                android:layout_marginBottom="160sp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/img_bottomBc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/bottom_image" />
+
+    <ImageView
+        android:id="@+id/img_topMainBc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_image" />
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabtn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#FF9900"
+        android:clickable="true"
+        android:tint="@color/white"
+        app:borderWidth="0dp"
+        app:fabCustomSize="65dp"
+        app:fabSize="auto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="35dp"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24"
+        app:useCompatPadding="false"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

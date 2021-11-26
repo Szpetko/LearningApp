@@ -47,6 +47,7 @@ public class login_activity extends AppCompatActivity {
         userDAO = Room.databaseBuilder(this, UserDatabase.class, "User").allowMainThreadQueries().build().getUserDao();
 
 
+
         //Button Listeners
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
