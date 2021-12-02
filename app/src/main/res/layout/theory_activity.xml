@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".theory_activity"
+    android:background="#E1E1E1">
+
+
+    <ScrollView
+        android:layout_width="391dp"
+        android:layout_height="705dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_topMainBc">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_ch1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:text="@string/chapter1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/tv_theory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25sp"
+                android:layout_marginLeft="15sp"
+                android:layout_marginRight="15sp"
+                android:fontFamily="@font/lato_bold"
+                android:shadowColor="#000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_finish"
+                android:layout_width="114dp"
+                android:layout_height="48dp"
+                android:layout_gravity="right"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="24sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginBottom="180sp"
+                android:background="@drawable/purple_btn"
+                android:fontFamily="@font/lato_bold"
+                android:text="@string/finish"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/img_bottomBc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/bottom_image" />
+
+    <ImageView
+        android:id="@+id/img_topMainBc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_image"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
