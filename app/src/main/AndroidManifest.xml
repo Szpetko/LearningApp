@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningApp">
         <activity
+            android:name=".test_activity"
+            android:exported="true" />
+        <activity
             android:name=".theory_activity"
             android:exported="true" />
         <activity

@@ -23,7 +23,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_ch1"
+                android:id="@+id/tv_counter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="120sp"
@@ -32,13 +32,13 @@
                 android:shadowDx="0.0"
                 android:shadowDy="0.0"
                 android:shadowRadius="2.0"
-                android:text="@string/chapter1"
+                android:text="@string/chapter0"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="35sp" />
 
             <TextView
-                android:id="@+id/tv_theory"
+                android:id="@+id/tv_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25sp"
@@ -53,7 +53,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/btn_finish"
+                android:id="@+id/btn_next"
                 android:layout_width="114dp"
                 android:layout_height="48dp"
                 android:layout_gravity="right"

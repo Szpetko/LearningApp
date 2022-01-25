@@ -45,7 +45,7 @@ public class chapters_activity extends AppCompatActivity {
 
         //References to Buttons
         fabtn_back = findViewById(R.id.fabtn_back);
-        btn_Theory1 = findViewById(R.id.btn_finish);
+        btn_Theory1 = findViewById(R.id.btn_next);
         btn_Theory2 = findViewById(R.id.btn_Theory2);
         btn_Theory3 = findViewById(R.id.btn_Theory3);
         btn_Test1 = findViewById(R.id.btn_Test1);
@@ -70,7 +70,7 @@ public class chapters_activity extends AppCompatActivity {
                 Integer counter = userStats.getCh1_theory() + 1;
                 userStats.setCh1_theory(counter);
                 userDAO.updateStats(userStats);
-                openTheoryActivity(userId);
+                openTheoryActivity(userId,1);
             }
         });
 
@@ -81,6 +81,15 @@ public class chapters_activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(chapters_activity.this, "Test 1 working", Toast.LENGTH_SHORT).show();
+                    Integer userProgress = user.getProgress();
+//                    if (userProgress < 4)
+//                    {
+//                        Integer tempProgress = userProgress + 1;
+//                        user.setProgress(tempProgress);
+//                        userDAO.updateUser(user);
+//                    }
+                    openTestActivity(userId);
+
                 }
             });
         }
@@ -90,6 +99,10 @@ public class chapters_activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(chapters_activity.this, "Theory 2 working", Toast.LENGTH_SHORT).show();
+                    Integer counter = userStats.getCh2_theory() + 1;
+                    userStats.setCh2_theory(counter);
+                    userDAO.updateStats(userStats);
+                    openTheoryActivity(userId,2);
                 }
             });
         }
@@ -107,7 +120,11 @@ public class chapters_activity extends AppCompatActivity {
             btn_Theory3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(chapters_activity.this, "Test 3 working", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(chapters_activity.this, "Theory 3 working", Toast.LENGTH_SHORT).show();
+                    Integer counter = userStats.getCh3_theory() + 1;
+                    userStats.setCh3_theory(counter);
+                    userDAO.updateStats(userStats);
+                    openTheoryActivity(userId,3);
                 }
             });
         }
@@ -137,8 +154,13 @@ public class chapters_activity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openTheoryActivity(int id){
-        Intent intent = new Intent(this, theory_activity.class).putExtra("id", id);
+    public void openTheoryActivity(int id, int chNum){
+        Intent intent = new Intent(this, theory_activity.class).putExtra("id", id).putExtra("chNum",chNum);
+        startActivity(intent);
+    }
+
+    public void openTestActivity(int id){
+        Intent intent = new Intent(this, test_activity.class).putExtra("id", id);
         startActivity(intent);
     }
 }
