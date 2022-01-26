@@ -9,12 +9,21 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.learningapp.classes.CQuestions;
 import com.example.learningapp.data.UserDAO;
 import com.example.learningapp.data.UserDatabase;
 import com.example.learningapp.model.Stats;
 import com.example.learningapp.model.User;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class test_activity extends AppCompatActivity {
 
@@ -24,11 +33,18 @@ public class test_activity extends AppCompatActivity {
 
     //Variables
     private int userId, chapterNum;
+    private int counter = 0;
+    private Boolean sub_enable = false;
 
     //References to Buttons
     private TextView tv_counter, tv_question;
     private RadioButton rbtn_answer_a, rbtn_answer_b, rbtn_answer_c, rbtn_answer_d;
+    private RadioGroup radioGroup;
     private Button btn_submit, btn_previous, btn_next;
+
+    CQuestions qq = new CQuestions();
+    List<CQuestions> questions = new ArrayList<CQuestions>();
+
 
 
     @Override
@@ -61,30 +77,169 @@ public class test_activity extends AppCompatActivity {
         btn_submit = findViewById(R.id.btn_submit);
         btn_previous = findViewById(R.id.btn_previous);
         btn_next = findViewById(R.id.btn_next);
+        radioGroup = findViewById(R.id.radioGroup);
+
+        //Reading Questions form Files
+        String fileName = "Test" + chapterNum + ".txt";
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(getAssets().open(fileName)));
+            String line;
+            while ((line = reader.readLine()) != null){
+                String tokens[] = line.split("#");
+                if (tokens.length==6){
+                    int correct_ans = Integer.valueOf(tokens[5]);
+                    CQuestions temp = new CQuestions(tokens[0],tokens[1],tokens[2],tokens[3],tokens[4],correct_ans);
+                    questions.add(temp);
+                }
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+
+
+        //Setting TextViews
+        constructQuestion(qq);
+
+
 
 
         //Button Listeners
-        btn_submit.setOnClickListener(new View.OnClickListener() {
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == -1){
+                    //Nothing is checked
+                    sub_enable = false;
+                    btn_submit.setBackground(getResources().getDrawable(R.drawable.gray_btn));
+                }else{
+                    //Something is checked
+                    sub_enable = true;
+                    btn_submit.setBackground(getResources().getDrawable(R.drawable.purple_btn));
+                }
             }
         });
 
+
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sub_enable){
+                    CQuestions qtemp = questions.get(counter);
+                    showCorrectAnswer(qtemp.getCorrect_ans());
+                    int checkedId = radioGroup.getCheckedRadioButtonId();
+                    if (qtemp.getCorrect_ans() == findRadioButton(checkedId)){
+                        //Answer Correct
+                        Toast.makeText(test_activity.this, "Ans correct", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        //Answer Wrong
+                        Toast.makeText(test_activity.this, "Ans wrong", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
         btn_previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (counter > 0){
+                    counter--;
+                    constructQuestion(qq);
+                    radioGroup.clearCheck();
+                    resetAnswers();
+                }
+                if(counter == 0) {
+                    btn_previous.setBackground(getResources().getDrawable(R.drawable.gray_btn));
+                }
             }
         });
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (counter < (questions.size()-1)){
+                    counter++;
+                    constructQuestion(qq);
+                    radioGroup.clearCheck();
+                    resetAnswers();
+                }
+                if(counter > 0) {
+                    btn_previous.setBackground(getResources().getDrawable(R.drawable.purple_btn));
+                }
 
             }
         });
 
 
+
+
+
     }
+
+    private void constructQuestion(CQuestions qf){
+        qf = questions.get(counter);
+
+        if (qf.getAnswer_c().equals("none")|| qf.getAnswer_d().equals("none")){
+            rbtn_answer_c.setEnabled(false);
+            rbtn_answer_d.setEnabled(false);
+        }
+        else {
+            rbtn_answer_a.setEnabled(true);
+            rbtn_answer_b.setEnabled(true);
+            rbtn_answer_c.setEnabled(true);
+            rbtn_answer_d.setEnabled(true);
+        }
+
+        tv_question.setText(qf.getQuestion());
+        rbtn_answer_a.setText(qf.getAnswer_a());
+        rbtn_answer_b.setText(qf.getAnswer_b());
+        rbtn_answer_c.setText(qf.getAnswer_c());
+        rbtn_answer_d.setText(qf.getAnswer_d());
+        tv_counter.setText((counter+1) + "/" + questions.size());
+    }
+
+    private int findRadioButton(int checkedId) {
+        switch (checkedId) {
+            case R.id.rbtn_answer_a:
+                return 1;
+            case R.id.rbtn_answer_b:
+                return 2;
+            case R.id.rbtn_answer_c:
+                return 3;
+            case R.id.rbtn_answer_d:
+                return 4;
+        }
+        return 0;
+    }
+
+    private void showCorrectAnswer(int correctAns){
+        rbtn_answer_a.setClickable(false);
+        rbtn_answer_b.setClickable(false);
+        rbtn_answer_c.setClickable(false);
+        rbtn_answer_d.setClickable(false);
+
+        rbtn_answer_a.setTextColor(getResources().getColor(R.color.red));
+        rbtn_answer_b.setTextColor(getResources().getColor(R.color.red));
+        rbtn_answer_c.setTextColor(getResources().getColor(R.color.red));
+        rbtn_answer_d.setTextColor(getResources().getColor(R.color.red));
+
+        if(correctAns == 1)  rbtn_answer_a.setTextColor(getResources().getColor(R.color.green));
+        else if (correctAns == 2)  rbtn_answer_b.setTextColor(getResources().getColor(R.color.green));
+        else if (correctAns == 3)  rbtn_answer_c.setTextColor(getResources().getColor(R.color.green));
+        else if (correctAns == 4)  rbtn_answer_d.setTextColor(getResources().getColor(R.color.green));
+    }
+
+    private void resetAnswers(){
+        rbtn_answer_a.setClickable(true);
+        rbtn_answer_b.setClickable(true);
+        rbtn_answer_c.setClickable(true);
+        rbtn_answer_d.setClickable(true);
+
+        rbtn_answer_a.setTextColor(getResources().getColor(R.color.white));
+        rbtn_answer_b.setTextColor(getResources().getColor(R.color.white));
+        rbtn_answer_c.setTextColor(getResources().getColor(R.color.white));
+        rbtn_answer_d.setTextColor(getResources().getColor(R.color.white));
+    }
+
 }

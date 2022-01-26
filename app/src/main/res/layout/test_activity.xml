@@ -136,6 +136,7 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
+            tools:ignore="TouchTargetSizeCheck"
             tools:layout_editor_absoluteX="96dp"
             tools:layout_editor_absoluteY="349dp" />
 
@@ -152,6 +153,7 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
+            tools:ignore="TouchTargetSizeCheck"
             tools:layout_editor_absoluteX="96dp"
             tools:layout_editor_absoluteY="349dp" />
 
@@ -168,6 +170,7 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
+            tools:ignore="TouchTargetSizeCheck"
             tools:layout_editor_absoluteX="96dp"
             tools:layout_editor_absoluteY="349dp" />
 
@@ -184,6 +187,7 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
+            tools:ignore="TouchTargetSizeCheck"
             tools:layout_editor_absoluteX="96dp"
             tools:layout_editor_absoluteY="349dp" />
 

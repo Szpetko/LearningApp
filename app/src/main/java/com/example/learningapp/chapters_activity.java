@@ -88,7 +88,7 @@ public class chapters_activity extends AppCompatActivity {
 //                        user.setProgress(tempProgress);
 //                        userDAO.updateUser(user);
 //                    }
-                    openTestActivity(userId);
+                    openTestActivity(userId, 1);
 
                 }
             });
@@ -159,8 +159,8 @@ public class chapters_activity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openTestActivity(int id){
-        Intent intent = new Intent(this, test_activity.class).putExtra("id", id);
+    public void openTestActivity(int id, int chNum){
+        Intent intent = new Intent(this, test_activity.class).putExtra("id", id).putExtra("chNum",chNum);
         startActivity(intent);
     }
 }
