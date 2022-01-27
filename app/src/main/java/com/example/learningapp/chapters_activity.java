@@ -112,6 +112,7 @@ public class chapters_activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(chapters_activity.this, "Test 2 working", Toast.LENGTH_SHORT).show();
+                    openTestActivity(userId, 2);
                 }
             });
         }
@@ -134,6 +135,7 @@ public class chapters_activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(chapters_activity.this, "Test 3 working", Toast.LENGTH_SHORT).show();
+                    openTestActivity(userId, 3);
                 }
             });
         }

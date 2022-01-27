@@ -3,6 +3,8 @@ package com.example.learningapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.animation.IntArrayEvaluator;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +37,7 @@ public class test_activity extends AppCompatActivity {
     private int userId, chapterNum;
     private int counter = 0;
     private Boolean sub_enable = false;
+    private int score = 0;
 
     //References to Buttons
     private TextView tv_counter, tv_question;
@@ -75,7 +78,7 @@ public class test_activity extends AppCompatActivity {
         rbtn_answer_c = findViewById(R.id.rbtn_answer_c);
         rbtn_answer_d = findViewById(R.id.rbtn_answer_d);
         btn_submit = findViewById(R.id.btn_submit);
-        btn_previous = findViewById(R.id.btn_previous);
+        //btn_previous = findViewById(R.id.btn_previous);
         btn_next = findViewById(R.id.btn_next);
         radioGroup = findViewById(R.id.radioGroup);
 
@@ -131,29 +134,30 @@ public class test_activity extends AppCompatActivity {
                     int checkedId = radioGroup.getCheckedRadioButtonId();
                     if (qtemp.getCorrect_ans() == findRadioButton(checkedId)){
                         //Answer Correct
-                        Toast.makeText(test_activity.this, "Ans correct", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(test_activity.this, "Ans correct", Toast.LENGTH_SHORT).show();
+                        score++;
                     }
                     else {
                         //Answer Wrong
-                        Toast.makeText(test_activity.this, "Ans wrong", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(test_activity.this, "Ans wrong", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
-        btn_previous.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (counter > 0){
-                    counter--;
-                    constructQuestion(qq);
-                    radioGroup.clearCheck();
-                    resetAnswers();
-                }
-                if(counter == 0) {
-                    btn_previous.setBackground(getResources().getDrawable(R.drawable.gray_btn));
-                }
-            }
-        });
+//        btn_previous.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (counter > 0){
+//                    counter--;
+//                    constructQuestion(qq);
+//                    radioGroup.clearCheck();
+//                    resetAnswers();
+//                }
+//                if(counter == 0) {
+//                    btn_previous.setBackground(getResources().getDrawable(R.drawable.gray_btn));
+//                }
+//            }
+//        });
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,10 +167,60 @@ public class test_activity extends AppCompatActivity {
                     constructQuestion(qq);
                     radioGroup.clearCheck();
                     resetAnswers();
+                    if (counter == (questions.size()-1)){
+                        btn_next.setText("Finish");
+                    }
                 }
-                if(counter > 0) {
-                    btn_previous.setBackground(getResources().getDrawable(R.drawable.purple_btn));
+                else if (counter >= (questions.size()-1)) {
+                    Toast.makeText(test_activity.this, "Score: " + score + " grade: " + gradeCounting(score), Toast.LENGTH_SHORT).show();
+
+
+                    if (chapterNum == 1) {
+
+                        if (gradeCounting(score) >= 50){
+                            userStats.setCh1_grade(gradeCounting(score));
+                            userDAO.updateStats(userStats);
+                            addProgress(2);
+                        }
+                        Integer counter = userStats.getCh1_test() + 1;
+                        userStats.setCh1_test(counter);
+                        userDAO.updateStats(userStats);
+
+                    }
+                    else if (chapterNum == 2) {
+
+                        if (gradeCounting(score) >= 50){
+                            userStats.setCh2_grade(gradeCounting(score));
+                            userDAO.updateStats(userStats);
+                            addProgress(4);
+                        }
+                        Integer counter = userStats.getCh2_test() + 1;
+                        userStats.setCh2_test(counter);
+                        userDAO.updateStats(userStats);
+
+                    }
+                    else if (chapterNum == 3) {
+
+                        if (gradeCounting(score) >= 50){
+                            userStats.setCh3_grade(gradeCounting(score));
+                            userDAO.updateStats(userStats);
+                            addProgress(6);
+                        }
+                        Integer counter = userStats.getCh3_test() + 1;
+                        userStats.setCh3_test(counter);
+                        userDAO.updateStats(userStats);
+
+                    }
+                    else {
+                        Toast.makeText(test_activity.this, "Something went wrong!!! Progress can't be added.", Toast.LENGTH_SHORT).show();
+                    }
+                    openChaptersActivity(userId);
+
+
                 }
+//                if(counter > 0) {
+//                    btn_previous.setBackground(getResources().getDrawable(R.drawable.purple_btn));
+//                }
 
             }
         });
@@ -218,6 +272,7 @@ public class test_activity extends AppCompatActivity {
         rbtn_answer_b.setClickable(false);
         rbtn_answer_c.setClickable(false);
         rbtn_answer_d.setClickable(false);
+        btn_submit.setEnabled(false);
 
         rbtn_answer_a.setTextColor(getResources().getColor(R.color.red));
         rbtn_answer_b.setTextColor(getResources().getColor(R.color.red));
@@ -235,11 +290,39 @@ public class test_activity extends AppCompatActivity {
         rbtn_answer_b.setClickable(true);
         rbtn_answer_c.setClickable(true);
         rbtn_answer_d.setClickable(true);
+        btn_submit.setEnabled(true);
 
         rbtn_answer_a.setTextColor(getResources().getColor(R.color.white));
         rbtn_answer_b.setTextColor(getResources().getColor(R.color.white));
         rbtn_answer_c.setTextColor(getResources().getColor(R.color.white));
         rbtn_answer_d.setTextColor(getResources().getColor(R.color.white));
+    }
+
+    public void openChaptersActivity(int id){
+        Intent intent = new Intent(this, home_activity.class).putExtra("id", id);
+        startActivity(intent);
+    }
+
+    public void addProgress(int limit){
+
+        //Database
+        userDAO = Room.databaseBuilder(this, UserDatabase.class, "User").allowMainThreadQueries().build().getUserDao();
+        User user = userDAO.getUserById(userId);
+
+        Integer userProgress = user.getProgress();
+        if (userProgress < limit)
+        {
+            Integer tempProgress = userProgress + 1;
+            user.setProgress(tempProgress);
+            userDAO.updateUser(user);
+        }
+
+    }
+
+    public int gradeCounting(int grade){
+
+        double temp = (grade*100/questions.size());
+        return (int)temp;
     }
 
 }

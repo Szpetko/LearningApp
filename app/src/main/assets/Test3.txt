@@ -1,30 +1,5 @@
-Period of Roman rule in Greece is dataerd as
-136 BC
-146 BC
-163 BC
-164 BC
-2
-The Romans divided the region into four smaller republics.
-True
-False
-none
-none
-1
-The Romans didn't left local administration to the Greeks and making attempts to abolish traditional political patterns.
-True
-False
-none
-none
-2
-What was the center od civic ad political life.
-Acropolis
-Agora
-Partenon
-Temple of Olympian Zeus
-2
-The importance of this Caracalla's decree is historical, not political.
-True
-False
-none
-none
-1
+Period of Roman rule in Greece is dataerd as#136BC#146BC#163BC#164BC#2
+The Romans divided the region into four smaller republics.#True#False#none#none#1
+The Romans didn't left local administration to the Greeks and making attempts to abolish traditional political patterns.#True#False#none#none#2
+What was the center od civic ad political life.#Acropolis#Agora#Partenon#Temple of Olympian Zeus#2
+The importance of this Caracalla's decree is historical, not political.#True#False#none#none#1

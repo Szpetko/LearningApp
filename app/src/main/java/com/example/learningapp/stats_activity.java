@@ -91,14 +91,14 @@ public class stats_activity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private String gradeSetter (int gradeProc)
+    private String gradeSetter(int gradeProc)
     {
-        if (gradeProc >= 0 || gradeProc <= 49) return "F";
-        if (gradeProc >= 50 || gradeProc <= 59) return "E";
-        if (gradeProc >= 60 || gradeProc <= 69) return "D";
-        if (gradeProc >= 70 || gradeProc <= 79) return "C";
-        if (gradeProc >= 80 || gradeProc <= 89) return "B";
-        if (gradeProc >= 90 || gradeProc <= 100) return "A";
+        if (gradeProc >= 0 && gradeProc <= 49) return "F";
+        else if (gradeProc >= 50 && gradeProc <= 59) return "E";
+        else if (gradeProc >= 60 && gradeProc <= 69) return "D";
+        else if (gradeProc >= 70 && gradeProc <= 79) return "C";
+        else if (gradeProc >= 80 && gradeProc <= 89) return "B";
+        else if (gradeProc >= 90 && gradeProc <= 100) return "A";
         else return "none";
     }
 }
