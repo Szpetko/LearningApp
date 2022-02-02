@@ -103,11 +103,15 @@ public class theory_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //Checking chapter number and adding progress
                 if (chapterNum == 1) addProgress(1);
                 else if (chapterNum == 2)addProgress(3);
                 else if (chapterNum == 3)addProgress(5);
                 else {
+                    //Error
                     Toast.makeText(theory_activity.this, "Something went wrong!!! Progress can't be added.", Toast.LENGTH_SHORT).show();
+
+                    //Opening chapters activity
                     openChaptersActivity(userId);
                 }
 
@@ -120,8 +124,9 @@ public class theory_activity extends AppCompatActivity {
 
 
     public void openChaptersActivity(int id){
-        Intent intent = new Intent(this, home_activity.class).putExtra("id", id);
+        Intent intent = new Intent(this, chapters_activity.class).putExtra("id", id);
         startActivity(intent);
+        finish();
     }
 
     public void addProgress(int limit){

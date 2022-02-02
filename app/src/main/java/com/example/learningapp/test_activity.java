@@ -78,7 +78,6 @@ public class test_activity extends AppCompatActivity {
         rbtn_answer_c = findViewById(R.id.rbtn_answer_c);
         rbtn_answer_d = findViewById(R.id.rbtn_answer_d);
         btn_submit = findViewById(R.id.btn_submit);
-        //btn_previous = findViewById(R.id.btn_previous);
         btn_next = findViewById(R.id.btn_next);
         radioGroup = findViewById(R.id.radioGroup);
 
@@ -101,11 +100,8 @@ public class test_activity extends AppCompatActivity {
         }
 
 
-
         //Setting TextViews
         constructQuestion(qq);
-
-
 
 
         //Button Listeners
@@ -128,55 +124,46 @@ public class test_activity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (sub_enable){
+               if (sub_enable){
                     CQuestions qtemp = questions.get(counter);
                     showCorrectAnswer(qtemp.getCorrect_ans());
                     int checkedId = radioGroup.getCheckedRadioButtonId();
                     if (qtemp.getCorrect_ans() == findRadioButton(checkedId)){
                         //Answer Correct
-                        //Toast.makeText(test_activity.this, "Ans correct", Toast.LENGTH_SHORT).show();
                         score++;
                     }
                     else {
                         //Answer Wrong
-                        //Toast.makeText(test_activity.this, "Ans wrong", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
-//        btn_previous.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (counter > 0){
-//                    counter--;
-//                    constructQuestion(qq);
-//                    radioGroup.clearCheck();
-//                    resetAnswers();
-//                }
-//                if(counter == 0) {
-//                    btn_previous.setBackground(getResources().getDrawable(R.drawable.gray_btn));
-//                }
-//            }
-//        });
+
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Loading next question
                 if (counter < (questions.size()-1)){
                     counter++;
                     constructQuestion(qq);
                     radioGroup.clearCheck();
                     resetAnswers();
+
+                    //Changing text of the button at the last question
                     if (counter == (questions.size()-1)){
                         btn_next.setText("Finish");
                     }
                 }
+
+                //Finish test
                 else if (counter >= (questions.size()-1)) {
-                    Toast.makeText(test_activity.this, "Score: " + score + " grade: " + gradeCounting(score), Toast.LENGTH_SHORT).show();
 
-
+                    //Checking Chapter Number
                     if (chapterNum == 1) {
 
+                        //Adding grade to the database
                         if (gradeCounting(score) >= 50){
                             userStats.setCh1_grade(gradeCounting(score));
                             userDAO.updateStats(userStats);
@@ -189,6 +176,7 @@ public class test_activity extends AppCompatActivity {
                     }
                     else if (chapterNum == 2) {
 
+                        //Adding grade to the database
                         if (gradeCounting(score) >= 50){
                             userStats.setCh2_grade(gradeCounting(score));
                             userDAO.updateStats(userStats);
@@ -201,6 +189,7 @@ public class test_activity extends AppCompatActivity {
                     }
                     else if (chapterNum == 3) {
 
+                        //Adding grade to the database
                         if (gradeCounting(score) >= 50){
                             userStats.setCh3_grade(gradeCounting(score));
                             userDAO.updateStats(userStats);
@@ -212,15 +201,16 @@ public class test_activity extends AppCompatActivity {
 
                     }
                     else {
+                        //Error
                         Toast.makeText(test_activity.this, "Something went wrong!!! Progress can't be added.", Toast.LENGTH_SHORT).show();
                     }
-                    openChaptersActivity(userId);
+
+                    //Opening EndScreen Activity
+                    openTestEndScreenActivity(userId, gradeCounting(score));
 
 
                 }
-//                if(counter > 0) {
-//                    btn_previous.setBackground(getResources().getDrawable(R.drawable.purple_btn));
-//                }
+
 
             }
         });
@@ -298,9 +288,11 @@ public class test_activity extends AppCompatActivity {
         rbtn_answer_d.setTextColor(getResources().getColor(R.color.white));
     }
 
-    public void openChaptersActivity(int id){
-        Intent intent = new Intent(this, home_activity.class).putExtra("id", id);
+
+    public void openTestEndScreenActivity(int id, int grade){
+        Intent intent = new Intent(this, test_end_screen_activity.class).putExtra("id", id).putExtra("grade", grade);
         startActivity(intent);
+        finish();
     }
 
     public void addProgress(int limit){
@@ -310,6 +302,7 @@ public class test_activity extends AppCompatActivity {
         User user = userDAO.getUserById(userId);
 
         Integer userProgress = user.getProgress();
+
         if (userProgress < limit)
         {
             Integer tempProgress = userProgress + 1;

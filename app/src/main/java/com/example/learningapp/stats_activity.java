@@ -79,17 +79,14 @@ public class stats_activity extends AppCompatActivity {
         fabtn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openHomeActivity(userId);
+                onBackPressed();
             }
+
         });
 
 
     }
 
-    public void openHomeActivity(int id){
-        Intent intent = new Intent(this, home_activity.class).putExtra("id", id);
-        startActivity(intent);
-    }
 
     private String gradeSetter(int gradeProc)
     {
@@ -100,5 +97,10 @@ public class stats_activity extends AppCompatActivity {
         else if (gradeProc >= 80 && gradeProc <= 89) return "B";
         else if (gradeProc >= 90 && gradeProc <= 100) return "A";
         else return "none";
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

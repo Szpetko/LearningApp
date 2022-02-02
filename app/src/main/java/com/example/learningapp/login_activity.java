@@ -31,6 +31,7 @@ public class login_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+
         //No Bars
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -52,19 +53,25 @@ public class login_activity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(login_activity.this, "Info: " + et_username.getText().toString()
-//                        + ", " + et_password.getText().toString(), Toast.LENGTH_SHORT).show();
 
+                //Getting Text from EditTexts
                 String username = et_username.getText().toString().trim();
                 String password = et_password.getText().toString().trim();
 
                 User user = userDAO.getUser(username,password);
                 if (user != null){
-                    Toast.makeText(login_activity.this, "Login Succeful!" + user.getProgress(), Toast.LENGTH_SHORT).show();
+                    //Logging Successful
+
+                    //Clearing Text
+                    et_username.getText().clear();
+                    et_password.getText().clear();
+
+                    //Opening Next Activity
                     openHomeActivity(user.getId());
                 }
                 else {
-                    Toast.makeText(login_activity.this, "UnRegistered user or incorrect password.", Toast.LENGTH_SHORT).show();
+                    //Logging Failed
+                    Toast.makeText(login_activity.this, "Unregistered user or incorrect password.", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -75,16 +82,19 @@ public class login_activity extends AppCompatActivity {
         fabtn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openIntroActivity();
+
+                //Going to the Previous Activity
+                onBackPressed();
             }
         });
 
     }
 
-    public void openIntroActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
+
 
     public void openHomeActivity(int id){
         Intent intent = new Intent(this, home_activity.class).putExtra("id", id);

@@ -37,21 +37,13 @@ public class home_activity extends AppCompatActivity {
     private ProgressBar pb_progress;
 
 
-    //Getters and Setters
-    public int getCurrentProgress() {
-        return currentProgress;
-    }
-
-    public void setCurrentProgress(int currentProgress) {
-        this.currentProgress = currentProgress;
-    }
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
+
         //No Bars
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -80,6 +72,9 @@ public class home_activity extends AppCompatActivity {
         tv_lrStyle.setText("Learning Style: None");
         tv_name.setText("Name");
 
+        if (user.getProgress() == 0) btn_continue.setText("Start");
+        else btn_continue.setText("Continue");
+
         //Setting ProgressBar
         float userProgress = user.getProgress();
         currentProgress = Math.round((userProgress / 6) * 100);
@@ -96,6 +91,7 @@ public class home_activity extends AppCompatActivity {
             tv_name.setText(user.getUsername());
         }
         else {
+
             //Error taking things from database
             Toast.makeText(home_activity.this, "Something went wrong! Can not load user!", Toast.LENGTH_SHORT).show();
         }
@@ -109,18 +105,8 @@ public class home_activity extends AppCompatActivity {
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //Start or Continue the learning
-
-//                user.setProgress(user.getProgress()+1);
-//                userDAO.updateUser(user);
-//                //currentProgress = user.getProgress()/20 * 100;
-//                float userProgress = user.getProgress();
-//                currentProgress = Math.round((userProgress / 50) * 100);
-//                //Toast.makeText(home_activity.this, "Progress: " + user.getProgress() + " | " + currentProgress, Toast.LENGTH_SHORT).show();
-//                pb_progress.setProgress(currentProgress);
-//                pb_progress.setMax(100);
-//                tv_progressProc.setText(currentProgress + "%");
-
                 openChaptersActivity(userId);
 
             }
@@ -129,11 +115,8 @@ public class home_activity extends AppCompatActivity {
         btn_stats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //Opening the tab with Statistics
-
-
-//                Stats userStats = userDAO.getStatsByUserId(userId);
-//                Toast.makeText(home_activity.this, "cos: " + userStats.toString(), Toast.LENGTH_SHORT).show();
                 openStatsActivity(userId);
 
 
@@ -143,18 +126,10 @@ public class home_activity extends AppCompatActivity {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.setProgress(user.getProgress()-1);
-                userDAO.updateUser(user);
-                //currentProgress = user.getProgress()/20 * 100;
-                float userProgress = user.getProgress();
-                currentProgress = Math.round((userProgress / 6) * 100);
-                //Toast.makeText(home_activity.this, "Progress: " + user.getProgress() + " | " + currentProgress, Toast.LENGTH_SHORT).show();
-                pb_progress.setProgress(currentProgress);
-                pb_progress.setMax(100);
-                tv_progressProc.setText(currentProgress + "%");
-
 
                 //Logging out
+                openIntroActivity();
+
             }
         });
 
@@ -163,6 +138,12 @@ public class home_activity extends AppCompatActivity {
 
     public void openStatsActivity(int id){
         Intent intent = new Intent(this, stats_activity.class).putExtra("id", id);
+        startActivity(intent);
+    }
+
+    public void openIntroActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

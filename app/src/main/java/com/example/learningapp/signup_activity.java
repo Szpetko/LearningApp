@@ -26,7 +26,7 @@ public class signup_activity extends AppCompatActivity {
     //Database
     private UserDAO userDAO;
 
-
+    //Variables
     private Boolean isStyleSelected;
     private String lrStyle;
 
@@ -37,32 +37,6 @@ public class signup_activity extends AppCompatActivity {
     private Button btn_signup;
 
 
-    //Getters and Setters
-    public String getLrStyle() {
-        return lrStyle;
-    }
-
-    public void setLrStyle(String lrStyle) {
-        this.lrStyle = lrStyle;
-    }
-
-
-    public Boolean getStyleSelected() {
-        return isStyleSelected;
-    }
-
-    public void setStyleSelected(Boolean styleSelected) {
-        isStyleSelected = styleSelected;
-    }
-
-
-    //toString
-    @Override
-    public String toString() {
-        return "signup_activity{" +
-                "isStyleSelected=" + isStyleSelected +
-                '}';
-    }
 
 
     @Override
@@ -90,32 +64,37 @@ public class signup_activity extends AppCompatActivity {
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(signup_activity.this, "All info: " + et_username.getText().toString()
-//                        + ", " + et_password.getText().toString()
-//                        + ", " + et_rePassword.getText().toString()
-//                        + ", " + lrStyle, Toast.LENGTH_SHORT).show();
+
+                //Getting Text from EditTexts
                 String username = et_username.getText().toString().trim();
                 String password = et_password.getText().toString().trim();
                 String rePassword = et_rePassword.getText().toString().trim();
-                //lr_style
 
-
-
+                //Checking Match of the passwords
                 if (password.equals(rePassword)){
                     User user = new User(username,password,lrStyle,0);
+
+                    //Checking If Fields Are Filled
                     if (invalidInput(user)){
+
+                        //Register Success
                         userDAO.registerUser(user);
                         user = userDAO.getUser(username,password);
                         Stats stats = new Stats(user.getId(),0,0,0,0,0,0,0,0,0);
                         userDAO.insertStats(stats);
                         Toast.makeText(getApplicationContext(), "User Registered!", Toast.LENGTH_SHORT).show();
-                        openIntroActivity();
+
+                        //Going to the Previous Activity
+                        onBackPressed();
                     }
                     else{
+
+                        //Register Fail
                         Toast.makeText(signup_activity.this, "Fill all fields!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
+
                     Toast.makeText( signup_activity.this, "Passwords are not matching", Toast.LENGTH_SHORT).show();
                 }
 
@@ -126,7 +105,7 @@ public class signup_activity extends AppCompatActivity {
         fabtn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openIntroActivity();
+                onBackPressed();
             }
         });
 
@@ -134,7 +113,6 @@ public class signup_activity extends AppCompatActivity {
         //Spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.learning_styles, R.layout.spnr_style);
         adapter.setDropDownViewResource(R.layout.sprn_drpdn_style);
-
         sp_lrStyle.setAdapter(adapter);
 
 
@@ -143,16 +121,13 @@ public class signup_activity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position==0)
                 {
-                    //Do nothing
-                    //ERROR "You need to select Learning Style"
+                    //Learning Style not Selected
                     isStyleSelected = false;
-                    //Toast.makeText(signup_activity.this, "You need to select Learning Style " + getStyleSelected().toString(), Toast.LENGTH_SHORT).show();
-
                 }
                 else {
+                    //Learning Style Selected
                     isStyleSelected = true;
                     lrStyle = (String) parent.getItemAtPosition(position);
-                    //Toast.makeText(signup_activity.this, "Selected: " + lrStyle + " " + getStyleSelected().toString(), Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -169,10 +144,11 @@ public class signup_activity extends AppCompatActivity {
 
     }
 
-    public void openIntroActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
+
 
     private Boolean invalidInput(User user){
         if (user.getUsername().isEmpty() || user.getPassword().isEmpty() || isStyleSelected != true){

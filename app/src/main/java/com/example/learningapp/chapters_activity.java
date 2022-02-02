@@ -66,10 +66,12 @@ public class chapters_activity extends AppCompatActivity {
         btn_Theory1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(chapters_activity.this, "Theory 1 working", Toast.LENGTH_SHORT).show();
+                //Adding Approach
                 Integer counter = userStats.getCh1_theory() + 1;
                 userStats.setCh1_theory(counter);
                 userDAO.updateStats(userStats);
+
+                //Opening Next Activity
                 openTheoryActivity(userId,1);
             }
         });
@@ -80,14 +82,8 @@ public class chapters_activity extends AppCompatActivity {
             btn_Test1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(chapters_activity.this, "Test 1 working", Toast.LENGTH_SHORT).show();
-                    Integer userProgress = user.getProgress();
-//                    if (userProgress < 4)
-//                    {
-//                        Integer tempProgress = userProgress + 1;
-//                        user.setProgress(tempProgress);
-//                        userDAO.updateUser(user);
-//                    }
+
+                    //Opening Next Activity
                     openTestActivity(userId, 1);
 
                 }
@@ -98,10 +94,12 @@ public class chapters_activity extends AppCompatActivity {
             btn_Theory2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(chapters_activity.this, "Theory 2 working", Toast.LENGTH_SHORT).show();
+                    //Adding Approach
                     Integer counter = userStats.getCh2_theory() + 1;
                     userStats.setCh2_theory(counter);
                     userDAO.updateStats(userStats);
+
+                    //Opening Next Activity
                     openTheoryActivity(userId,2);
                 }
             });
@@ -111,7 +109,8 @@ public class chapters_activity extends AppCompatActivity {
             btn_Test2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(chapters_activity.this, "Test 2 working", Toast.LENGTH_SHORT).show();
+
+                    //Opening Next Activity
                     openTestActivity(userId, 2);
                 }
             });
@@ -121,10 +120,13 @@ public class chapters_activity extends AppCompatActivity {
             btn_Theory3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(chapters_activity.this, "Theory 3 working", Toast.LENGTH_SHORT).show();
+
+                    //Adding Approach
                     Integer counter = userStats.getCh3_theory() + 1;
                     userStats.setCh3_theory(counter);
                     userDAO.updateStats(userStats);
+
+                    //Opening Next Activity
                     openTheoryActivity(userId,3);
                 }
             });
@@ -134,7 +136,8 @@ public class chapters_activity extends AppCompatActivity {
             btn_Test3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(chapters_activity.this, "Test 3 working", Toast.LENGTH_SHORT).show();
+
+                    //Opening Next Activity
                     openTestActivity(userId, 3);
                 }
             });
@@ -145,24 +148,28 @@ public class chapters_activity extends AppCompatActivity {
         fabtn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openHomeActivity(userId);
+
+                //Going to the Previous Activity
+                onBackPressed();
             }
         });
 
     }
 
-    public void openHomeActivity(int id){
-        Intent intent = new Intent(this, home_activity.class).putExtra("id", id);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     public void openTheoryActivity(int id, int chNum){
         Intent intent = new Intent(this, theory_activity.class).putExtra("id", id).putExtra("chNum",chNum);
         startActivity(intent);
+        finish();
     }
 
     public void openTestActivity(int id, int chNum){
         Intent intent = new Intent(this, test_activity.class).putExtra("id", id).putExtra("chNum",chNum);
         startActivity(intent);
+        finish();
     }
 }

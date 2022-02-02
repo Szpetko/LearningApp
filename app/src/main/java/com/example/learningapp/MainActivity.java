@@ -28,26 +28,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro_activity);
+
         //No Bars
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
         //Database
-        user_dataBase = Room.databaseBuilder(this,UserDatabase.class, "User")
-                .allowMainThreadQueries()
-                .build();
-
+        user_dataBase = Room.databaseBuilder(this,UserDatabase.class, "User").allowMainThreadQueries().build();
         user_db = user_dataBase.getUserDao();
 
         //References to Buttons
         btn_logPage = findViewById(R.id.btn_continue);
         btn_singPage = findViewById(R.id.btn_logout);
 
+
         //Button Listeners
         btn_logPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Opening Login Activity
                 openLoginActivity();
             }
         });
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         btn_singPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //Opening Signup Activity
                 openSignupActivity();
             }
         });

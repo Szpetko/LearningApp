@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningApp">
         <activity
+            android:name=".test_end_screen_activity"
+            android:exported="true" />
+        <activity
             android:name=".test_activity"
             android:exported="true" />
         <activity
@@ -26,11 +29,10 @@
             android:exported="true" />
         <activity
             android:name=".signup_activity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="true"
-            android:label="@string/title_activity_login" />
+            android:exported="true" /> <!-- <activity -->
+        <!-- android:name=".ui.login.LoginActivity" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="@string/title_activity_login" /> -->
         <activity
             android:name=".login_activity"
             android:exported="true" />
