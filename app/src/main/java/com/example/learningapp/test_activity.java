@@ -95,6 +95,7 @@ public class test_activity extends AppCompatActivity {
                     questions.add(temp);
                 }
             }
+            reader.close();
         }catch (Exception ex){
             ex.printStackTrace();
         }

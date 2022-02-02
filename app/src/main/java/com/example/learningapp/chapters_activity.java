@@ -150,19 +150,21 @@ public class chapters_activity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //Going to the Previous Activity
-                onBackPressed();
+                openHomeActivity(userId);
             }
         });
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
     public void openTheoryActivity(int id, int chNum){
         Intent intent = new Intent(this, theory_activity.class).putExtra("id", id).putExtra("chNum",chNum);
+        startActivity(intent);
+        finish();
+    }
+
+    public void openHomeActivity(int id){
+        Intent intent = new Intent(this, home_activity.class).putExtra("id", id);
         startActivity(intent);
         finish();
     }

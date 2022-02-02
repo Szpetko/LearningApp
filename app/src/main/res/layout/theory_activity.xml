@@ -37,6 +37,18 @@
                 android:textColor="@color/white"
                 android:textSize="35sp" />
 
+            <Button
+                android:id="@+id/btn_play"
+                android:layout_width="114dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="32sp"
+                android:background="@drawable/purple_btn"
+                android:fontFamily="@font/lato_bold"
+                android:text="Play"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/tv_question"
                 android:layout_width="match_parent"
